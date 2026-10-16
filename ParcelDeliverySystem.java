@@ -318,10 +318,18 @@ public class ParcelDeliverySystem {
 
     private double readWeight(double maxWeight, String parcelType) {
 
-        return readDouble("Enter weight (kg): ",
-                w -> Validation.validateWeight(w, maxWeight, parcelType));
-    }
+    return prompt("Enter weight (kg): ", input -> {
 
+        if (!input.matches("\\d+(\\.\\d{1,3})?")) {
+            throw new InvalidInputException(
+                    "Weight must be a number with up to 3 decimal places!");
+        }
+
+        double weight = Double.parseDouble(input);
+        Validation.validateWeight(weight, maxWeight, parcelType);
+        return weight;
+    });
+}
     private int readDimension(String name) {
 
         return readInt(
