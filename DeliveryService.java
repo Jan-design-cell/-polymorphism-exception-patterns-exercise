@@ -1,22 +1,16 @@
-package parceldelivery.model;
-
 public enum DeliveryService {
-    STANDARD("Standard"),
-    EXPRESS("Express"),
-    SAME_DAY("Same Day");
 
-    private final String displayName;
+    STANDARD(new StandardDeliveryStrategy()),
+    EXPRESS(new ExpressDeliveryStrategy()),
+    SAME_DAY(new SameDayDeliveryStrategy());
 
-    DeliveryService(String displayName) {
-        this.displayName = displayName;
+    private final DeliveryFeeStrategy strategy;
+
+    DeliveryService(DeliveryFeeStrategy strategy) {
+        this.strategy = strategy;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    @Override
-    public String toString() {
-        return displayName;
+    public DeliveryFeeStrategy getStrategy() {
+        return strategy;
     }
 }

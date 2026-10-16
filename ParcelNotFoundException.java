@@ -1,10 +1,11 @@
-package parceldelivery.exception;
 
-public class ParcelNotFoundException extends ParcelException {
 
-    private static final long serialVersionUID = 1L;
+public class ParcelNotFoundException
+        extends Exception {
 
-    public ParcelNotFoundException() {
-        super("Parcel not found!");
+    public ParcelNotFoundException(
+            String message) {
+
+        super(message);
     }
 }

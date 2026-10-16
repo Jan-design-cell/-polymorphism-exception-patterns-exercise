@@ -1,10 +1,9 @@
-package parceldelivery.exception;
+public class DuplicateTrackingNumberException
+        extends Exception {
 
-public class DuplicateTrackingNumberException extends ParcelException {
+    public DuplicateTrackingNumberException(
+            String message) {
 
-    private static final long serialVersionUID = 1L;
-
-    public DuplicateTrackingNumberException(String trackingNumber) {
-        super("Duplicate tracking number! " + trackingNumber + " already exists.");
+        super(message);
     }
 }

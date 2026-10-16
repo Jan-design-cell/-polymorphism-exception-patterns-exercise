@@ -1,21 +1,11 @@
-package parceldelivery.strategy;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import parceldelivery.model.DeliveryService;
-
-public class ExpressDeliveryStrategy implements DeliveryFeeStrategy {
-
-    private static final BigDecimal MULTIPLIER = new BigDecimal("1.5");
+public class ExpressDeliveryStrategy
+        implements DeliveryFeeStrategy {
 
     @Override
-    public DeliveryService getService() {
-        return DeliveryService.EXPRESS;
-    }
+    public double calculateFee(
+            double baseFee,
+            double chargeableWeight) {
 
-    @Override
-    public BigDecimal calculateFee(BigDecimal baseFee) {
-        return baseFee.multiply(MULTIPLIER).setScale(2, RoundingMode.HALF_UP);
+        return baseFee * 1.5;
     }
 }

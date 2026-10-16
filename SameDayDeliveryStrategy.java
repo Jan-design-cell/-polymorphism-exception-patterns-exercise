@@ -1,33 +1,18 @@
-package parceldelivery.strategy;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import parceldelivery.model.DeliveryService;
-
-public class SameDayDeliveryStrategy implements DeliveryFeeStrategy {
-
-    private static final BigDecimal MULTIPLIER = new BigDecimal("2");
-    private static final BigDecimal SURCHARGE = new BigDecimal("100");
-    private static final BigDecimal MAX_CHARGEABLE_WEIGHT = new BigDecimal("10");
+public class SameDayDeliveryStrategy
+        implements DeliveryFeeStrategy {
 
     @Override
-    public DeliveryService getService() {
-        return DeliveryService.SAME_DAY;
-    }
+    public double calculateFee(
+            double baseFee,
+            double chargeableWeight) {
 
-    @Override
-    public BigDecimal calculateFee(BigDecimal baseFee) {
-        return baseFee.multiply(MULTIPLIER).add(SURCHARGE).setScale(2, RoundingMode.HALF_UP);
-    }
+        if (chargeableWeight > 10) {
 
-    @Override
-    public boolean isAllowedFor(BigDecimal chargeableWeight) {
-        return chargeableWeight.compareTo(MAX_CHARGEABLE_WEIGHT) <= 0;
-    }
+            throw new IllegalArgumentException(
+                    "Same Day delivery is only for parcels up to 10 kg!"
+            );
+        }
 
-    @Override
-    public String getRestrictionMessage() {
-        return "Same Day delivery is only for parcels up to 10 kg!";
+        return (baseFee * 2) + 100.00;
     }
 }
